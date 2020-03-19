@@ -1,0 +1,43 @@
+<?php
+namespace  #{EntityMameSpace};
+
+use Sayid\Table2Model\DBTool;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
+use #{EntityName} as Entity;
+
+class #{EntityName}Example
+{
+    private string $prikey = "#{PriKey}";
+
+    private static string $tableName = "#{TableName}";
+
+    private Builder $builder;
+
+    public function __construct()
+    {
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+    }
+
+    public static function getTable()
+    {
+        return self::$tableName;
+    }
+
+    public function getBuilder() : Builder
+    {
+        return $this->builder;
+    }
+
+    public function insert(array $data)
+    {
+        DB::table(self::getTable())->insert($data);
+    }
+
+    public function inserts(array $data)
+    {
+        DB::table(self::getTable())->insert($data);
+    }
+
+}

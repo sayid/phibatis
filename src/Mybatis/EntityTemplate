@@ -1,0 +1,11 @@
+<?php
+namespace  #{EntityMameSpace};
+
+use App\Core\EntityInterface;
+
+class #{EntityName} implements EntityInterface
+{
+    #{Fileds}
+
+    #{GetterAndSetter}
+}
