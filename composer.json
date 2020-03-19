@@ -4,6 +4,9 @@
   "description": "",
   "type": "library",
   "version": "0.1.3",
+  "bin": [
+    "src/bin/mybatis"
+  ],
   "require": {
     "php": ">=7.2"
   },
