@@ -1,6 +1,6 @@
 
 {
-  "name": "phptable2model",
+  "name": "sayid/table2model",
   "description": "",
   "type": "library",
   "version": "0.1.3",
