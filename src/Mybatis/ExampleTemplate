@@ -38,7 +38,7 @@ class #{EntityName}Example
     /**
     * 获取列表结果
     */
-    public function getList() : \Illuminate\Support\Collection
+    public function getList() : Collection
     {
        return $this->builder->get();
     }
