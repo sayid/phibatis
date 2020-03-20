@@ -1,7 +1,7 @@
 <?php
 namespace  #{EntityMameSpace};
 
-use App\Core\EntityInterface;
+use Sayid\Table2Mode\EntityInterface;
 
 class #{EntityName} implements EntityInterface
 {
