@@ -85,10 +85,19 @@ class DBTool
         }
     }
 
+    static function convertUnderline($str)
+    {
+        $str = preg_replace_callback('/([-_]+([a-z]{1}))/i', function ($matches) {
+            return strtoupper($matches[2]);
+        }, $str);
+        return $str;
+    }
+
     public static function getEntityGetterSetter(string $field, string $typeStr)
     {
+        $func = self::convertUnderline($field);
         $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityGetterSetterTpl"));
-        $tpl = str_replace("#{FieldFunc}", ucfirst($field),  $tpl);
+        $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
         return $tpl;
@@ -96,8 +105,9 @@ class DBTool
 
     public static function getEntityField(string $field, string $typeStr)
     {
+        $func = self::convertUnderline($field);
         $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityFieldTpl"));
-        $tpl = str_replace("#{FieldFunc}", ucfirst($field),  $tpl);
+        $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
         return $tpl;
@@ -105,13 +115,14 @@ class DBTool
 
     public static function getWhere(string $field, string $typeStr) : string
     {
+        $func = self::convertUnderline($field);
         $whereAndTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/WhereAndTpl"));
-        $whereAndTpl = str_replace("#{FieldFunc}", ucfirst($field),  $whereAndTpl);
+        $whereAndTpl = str_replace("#{FieldFunc}", $func,  $whereAndTpl);
         $whereAndTpl = str_replace("#{TypeStr}", $typeStr,  $whereAndTpl);
         $whereAndTpl = str_replace("#{Field}", $field,  $whereAndTpl);
 
         $whereOrTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/WhereOrTpl"));
-        $whereOrTpl = str_replace("#{FieldFunc}", ucfirst($field),  $whereOrTpl);
+        $whereOrTpl = str_replace("#{FieldFunc}", $func,  $whereOrTpl);
         $whereOrTpl = str_replace("#{TypeStr}", $typeStr,  $whereOrTpl);
         $whereOrTpl = str_replace("#{Field}", $field,  $whereOrTpl);
         return $whereAndTpl.$whereOrTpl;
