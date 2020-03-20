@@ -5,7 +5,7 @@ use Sayid\Table2Model\DBTool;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
-use #{EntityMameSpace}/#{EntityName} as Entity;
+use #{EntityMameSpace}\#{EntityName} as Entity;
 
 class #{EntityName}Example
 {
