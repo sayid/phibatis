@@ -69,7 +69,7 @@ class #{EntityName}Example
 
     public function orWhere(\Closure $closure)
     {
-        return $this->builder->->orWhere($closure);
+        return $this->builder->orWhere($closure);
     }
 
     #{Where}
