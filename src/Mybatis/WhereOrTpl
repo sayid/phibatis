@@ -1,27 +1,27 @@
-public function or#{FieldFunc}EQ(#{TypeStr} $value)
-{
-   $this->builder->orWhere("#{Field}", "=", $value);
-}
+    public function or#{FieldFunc}EQ(#{TypeStr} $value)
+    {
+       $this->builder->orWhere("#{Field}", "=", $value);
+    }
 
-public function or#{FieldFunc}NotEQ(#{TypeStr} $value)
-{
-   $this->builder->orWhere("#{Field}", "!=", $value);
-}
+    public function or#{FieldFunc}NotEQ(#{TypeStr} $value)
+    {
+       $this->builder->orWhere("#{Field}", "!=", $value);
+    }
 
-public function or#{FieldFunc}In(array $value)
-{
-   $this->builder->orWhere("#{Field}", "in", $value);
-}
+    public function or#{FieldFunc}In(array $value)
+    {
+       $this->builder->orWhere("#{Field}", "in", $value);
+    }
 
-public function or#{FieldFunc}NotIn(array $value)
-{
-   $this->builder->orWhere("#{Field}", "in", $value);
-}
-public function or#{FieldFunc}Gt(#{TypeStr} $value)
-{
-   $this->builder->orWhere("#{Field}", ">", $value);
-}
-public function or#{FieldFunc}Lt(#{TypeStr} $value)
-{
-   $this->builder->orWhere("#{Field}", "<", $value);
-}
+    public function or#{FieldFunc}NotIn(array $value)
+    {
+       $this->builder->orWhere("#{Field}", "in", $value);
+    }
+    public function or#{FieldFunc}Gt(#{TypeStr} $value)
+    {
+       $this->builder->orWhere("#{Field}", ">", $value);
+    }
+    public function or#{FieldFunc}Lt(#{TypeStr} $value)
+    {
+       $this->builder->orWhere("#{Field}", "<", $value);
+    }
