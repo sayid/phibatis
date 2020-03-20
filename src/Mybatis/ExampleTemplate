@@ -50,11 +50,13 @@ class #{EntityName}Example
 
     public function orderBy(string $field, string $type) : Builder
     {
-        return $this->builder->orderby($field, $type);
+        $this->builder->orderby($field, $type);
+        return $this;
     }
     public function forPage(int $page, int $limit) : Builder
     {
-        return $this->builder->forPage($page, $limit);
+        $this->builder->forPage($page, $limit);
+        return $this;
     }
 
     public function insert(array $data)
@@ -69,7 +71,8 @@ class #{EntityName}Example
 
     public function orWhere(\Closure $closure)
     {
-        return $this->builder->orWhere($closure);
+        $this->builder->orWhere($closure);
+        return $this;
     }
 
     #{Where}
