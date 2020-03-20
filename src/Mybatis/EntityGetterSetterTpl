@@ -4,5 +4,5 @@
     }
     public function set#{FieldFunc}(#{TypeStr} $#{Field})
     {
-        $this->$#{Field} = $create_total;
+        $this->$#{Field} = $#{Field};
     }
