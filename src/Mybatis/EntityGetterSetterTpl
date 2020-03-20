@@ -1,8 +1,8 @@
     public function get#{FieldFunc}() : #{TypeStr}
     {
-        return	$this->$#{Field};
+        return	$this->#{Field};
     }
     public function set#{FieldFunc}(#{TypeStr} $#{Field})
     {
-        $this->$#{Field} = $#{Field};
+        $this->#{Field} = $#{Field};
     }
