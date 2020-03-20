@@ -71,7 +71,7 @@ class #{EntityName}Example
 
     public function insert(array $data)
     {
-        DB::table(self::getTable())->insert($data);
+        DB::table(self::getTable())->insertGetId($data);
     }
 
     public function inserts(array $data)
