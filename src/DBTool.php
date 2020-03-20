@@ -95,7 +95,7 @@ class DBTool
 
     public static function getEntityGetterSetter(string $field, string $typeStr)
     {
-        $func = self::convertUnderline($field);
+        $func = ucfirst(self::convertUnderline($field));
         $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityGetterSetterTpl"));
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
@@ -105,7 +105,7 @@ class DBTool
 
     public static function getEntityField(string $field, string $typeStr)
     {
-        $func = self::convertUnderline($field);
+        $func = ucfirst(self::convertUnderline($field));
         $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityFieldTpl"));
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
@@ -115,7 +115,7 @@ class DBTool
 
     public static function getWhere(string $field, string $typeStr) : string
     {
-        $func = self::convertUnderline($field);
+        $func = ucfirst(self::convertUnderline($field));
         $whereAndTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/WhereAndTpl"));
         $whereAndTpl = str_replace("#{FieldFunc}", $func,  $whereAndTpl);
         $whereAndTpl = str_replace("#{TypeStr}", $typeStr,  $whereAndTpl);
