@@ -30,6 +30,33 @@ class #{EntityName}Example
         return $this->builder;
     }
 
+    public function getOne() : Entity
+    {
+        return $this->builder->first();
+    }
+
+    /**
+    * 获取列表结果
+    */
+    public function getList()
+    {
+       return $this->builder->first();
+    }
+
+    public function count()
+    {
+        return $this->builder->count();
+    }
+
+    public function orderBy(string $field, string $type) : Builder
+    {
+        return $this->builder->orderby($field, $type);
+    }
+    public function forPage(int $page, int $limit) : Builder
+    {
+        return $this->builder->forPage($page, $limit);
+    }
+
     public function insert(array $data)
     {
         DB::table(self::getTable())->insert($data);
@@ -39,5 +66,12 @@ class #{EntityName}Example
     {
         DB::table(self::getTable())->insert($data);
     }
+
+    public function orWhere(\Closure $closure)
+    {
+        return $this->builder->->orWhere($closure);
+    }
+
+    #{Where}
 
 }

@@ -1,0 +1,27 @@
+public function and#{FieldFunc}EQ(#{TypeStr} $value)
+{
+   $this->builder->where("#{Field}", "=", $value);
+}
+
+public function and#{FieldFunc}NotEQ(#{TypeStr} $value)
+{
+   $this->builder->where("#{Field}", "!=", $value);
+}
+
+public function and#{FieldFunc}In(array $value)
+{
+   $this->builder->where("#{Field}", "in", $value);
+}
+
+public function and#{FieldFunc}NotIn(array $value)
+{
+   $this->builder->where("#{Field}", "in", $value);
+}
+public function and#{FieldFunc}Gt(#{TypeStr} $value)
+{
+   $this->builder->where("#{Field}", ">", $value);
+}
+public function and#{FieldFunc}Lt(#{TypeStr} $value)
+{
+   $this->builder->where("#{Field}", "<", $value);
+}
