@@ -1,4 +1,5 @@
 #!/usr/bin/env php
 <?php
-require realpath()."vendor/autoload.php";
+$app = require  realpath("./"). '/bootstrap/app.php';
 Sayid\Table2Model\DBTool::doMybatis();
+

@@ -37,6 +37,7 @@ class DBTool
         $tables = $mybatisConfig['tables'];
         foreach ($tables as $tableinfo) {
             $table = $tableinfo['table'];
+            echo "正在生成".$table.".......\r\n";
             $sql = "desc ".env('DB_DATABASE').".".$table;
             $rows=DB::select($sql, []);
             $num = count($rows);
@@ -70,6 +71,8 @@ class DBTool
                 $exampleTpl = str_replace("#{TableName}", $tableinfo['table'],  $exampleTpl);
 
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName']."Example.php", $exampleTpl);
+                echo "正在生成".$table."生成完毕.......\r\n";
+
             }
         }
     }
