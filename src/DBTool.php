@@ -36,6 +36,7 @@ class DBTool
         $mybatisConfig = config("mybatis");
         $tables = $mybatisConfig['tables'];
         foreach ($tables as $tableinfo) {
+            mkdir($mybatisConfig['output']);
             $table = $tableinfo['table'];
             echo "正在生成".$table.".......\r\n";
             $sql = "desc ".env('DB_DATABASE').".".$table;
