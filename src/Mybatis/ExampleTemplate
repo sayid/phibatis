@@ -65,7 +65,7 @@ class #{EntityName}Example
 
     public function update(array $data)
     {
-        return $this->builder->delete();
+        return $this->builder->update($data);
     }
 
     public function orderBy(string $field, string $type)
@@ -81,12 +81,12 @@ class #{EntityName}Example
 
     public function insert(array $data)
     {
-        DB::table(self::getTable())->insertGetId($data);
+        return DB::table(self::getTable())->insertGetId($data);
     }
 
     public function inserts(array $data)
     {
-        DB::table(self::getTable())->insert($data);
+        return DB::table(self::getTable())->insert($data);
     }
 
     public function orWhere(\Closure $closure)
