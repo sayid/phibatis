@@ -35,6 +35,11 @@ class #{EntityName}Example
         return $this->builder->first();
     }
 
+    public function getOneFields(array $fields) : object
+    {
+         return $this->builder->first($fields);
+    }
+
     /**
     * 获取列表结果
     */
