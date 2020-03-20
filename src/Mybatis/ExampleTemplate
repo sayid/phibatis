@@ -40,7 +40,7 @@ class #{EntityName}Example
     */
     public function getList()
     {
-       return $this->builder->first();
+       return $this->builder->get();
     }
 
     public function count()
@@ -48,12 +48,12 @@ class #{EntityName}Example
         return $this->builder->count();
     }
 
-    public function orderBy(string $field, string $type) : Builder
+    public function orderby(string $field, string $type)
     {
         $this->builder->orderby($field, $type);
         return $this;
     }
-    public function forPage(int $page, int $limit) : Builder
+    public function forPage(int $page, int $limit)
     {
         $this->builder->forPage($page, $limit);
         return $this;
