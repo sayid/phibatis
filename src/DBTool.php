@@ -61,14 +61,14 @@ class DBTool
                     $entityGetterSetter[] = self::getEntityGetter($field, $typeStr);
                     $entityGetterSetter[] = self::getEntitySetter($field, $typeStr);
                 }
-                $entityTpl = file_get_contents(app()->basePath("vendor/php-table2model/src/Mybatis/EntityTemplate"));
+                $entityTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityTemplate"));
                 $entityTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $entityTpl);
                 $entityTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $entityTpl);
                 $entityTpl = str_replace("#{Fileds}", join("\r\n", $entityFields),  $entityTpl);
                 $entityTpl = str_replace("#{GetterAndSetter}", join("\r\n", $entityGetterSetter),  $entityTpl);
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName'].".php", $entityTpl);
 
-                $exampleTpl = file_get_contents(app()->basePath("vendor/php-table2model/src/Mybatis/ExampleTemplate"));
+                $exampleTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/ExampleTemplate"));
                 $exampleTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $exampleTpl);
                 $exampleTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $exampleTpl);
                 $exampleTpl = str_replace("#{PriKey}", $tableinfo['PriKey'],  $exampleTpl);
