@@ -35,7 +35,10 @@ class DBTool
         app()->configure("mybatis");
         $mybatisConfig = config("mybatis");
         $tables = $mybatisConfig['tables'];
-        mkdir($mybatisConfig['output']);
+        if (!is_dir($mybatisConfig['output'])) {
+            mkdir($mybatisConfig['output']);
+        }
+
         foreach ($tables as $tableinfo) {
             $table = $tableinfo['table'];
             echo "正在生成".$table.".......\r\n";
