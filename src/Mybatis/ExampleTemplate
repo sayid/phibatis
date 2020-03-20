@@ -74,6 +74,16 @@ class #{EntityName}Example
         $this->builder->orWhere($closure);
         return $this;
     }
+    public function leftJoin(string $table, string $field, string $sign, string $field1)
+    {
+        $this->builder->leftJoin($table, $field, $sign, $field1);
+        return $this;
+    }
+    public function rightJoin(string $table, string $field, string $sign, string $field1)
+    {
+        $this->builder->rightJoin($table, $field, $sign, $field1);
+        return $this;
+    }
 
     #{Where}
 
