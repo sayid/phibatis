@@ -40,6 +40,11 @@ class #{EntityName}Example
          return $this->builder->first($fields);
     }
 
+    public function getListFields(array $fields) : Collection
+    {
+       return $this->builder->get($fields);
+    }
+
     /**
     * 获取列表结果
     */
