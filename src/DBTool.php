@@ -51,11 +51,13 @@ class DBTool
                 foreach ($rows as $row) {
                     $field = $row->Field;
                     $type =  $row->Type;
-                    $typeStr = "";
+                    $typeStr = "string";
                     if (strpos($type, "int") !== false) {
                         $typeStr = "int";
                     } else if (strpos($type, "varchar") !== false) {
                         $typeStr = "string";
+                    }  else if (strpos($type, "double") !== false) {
+                        $typeStr = "double";
                     }
                     $entityFields[] = "\tpublic $typeStr \$$field;";
                     $entityGetterSetter[] = self::getEntityGetter($field, $typeStr);
