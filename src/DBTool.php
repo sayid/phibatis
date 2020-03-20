@@ -60,9 +60,8 @@ class DBTool
                     }  else if (strpos($type, "double") !== false) {
                         $typeStr = "double";
                     }
-                    $entityFields[] = "\tpublic $typeStr \$$field;";
-                    $entityGetterSetter[] = self::getEntityGetter($field, $typeStr);
-                    $entityGetterSetter[] = self::getEntitySetter($field, $typeStr);
+                    $entityFields[] = self::getEntityField($field, $typeStr);
+                    $entityGetterSetter[] = self::getEntityGetterSetter($field, $typeStr);
                     $where[] = self::getWhere($field, $typeStr);
                 }
                 $entityTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityTemplate"));
@@ -86,14 +85,22 @@ class DBTool
         }
     }
 
-    public static function getEntityGetter(string $field, string $typeStr)
+    public static function getEntityGetterSetter(string $field, string $typeStr)
     {
-        return "\tpublic function get".ucfirst($field)."() : ".$typeStr."\r\n\t{\r\n\treturn\t\$this->".$field.";\r\n\t}";
+        $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityGetterSetterTpl"));
+        $tpl = str_replace("#{FieldFunc}", ucfirst($field),  $tpl);
+        $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
+        $tpl = str_replace("#{Field}", $field,  $tpl);
+        return $tpl;
     }
 
-    public static function getEntitySetter(string $field, string $typeStr)
+    public static function getEntityField(string $field, string $typeStr)
     {
-        return "\tpublic function set".ucfirst($field)."($typeStr \$$field)\r\n\t{\r\n\t\$this->$field\t=\t\$$field;\r\n\t}";
+        $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityFieldTpl"));
+        $tpl = str_replace("#{FieldFunc}", ucfirst($field),  $tpl);
+        $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
+        $tpl = str_replace("#{Field}", $field,  $tpl);
+        return $tpl;
     }
 
     public static function getWhere(string $field, string $typeStr) : string

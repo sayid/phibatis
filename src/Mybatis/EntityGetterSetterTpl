@@ -1,0 +1,8 @@
+    public function get#{FieldFunc}() : #{TypeStr}
+    {
+        return	$this->$#{Field};
+    }
+    public function set#{FieldFunc}(#{TypeStr} $#{Field})
+    {
+        $this->$#{Field} = $create_total;
+    }
