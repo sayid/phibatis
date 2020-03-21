@@ -59,6 +59,8 @@ class DBTool
                         $typeStr = "string";
                     }  else if (strpos($type, "double") !== false) {
                         $typeStr = "double";
+                    }  else if (strpos($type, "float") !== false) {
+                        $typeStr = "float";
                     }
                     $entityFields[] = self::getEntityField($field, $typeStr);
                     $entityGetterSetter[] = self::getEntityGetterSetter($field, $typeStr);
