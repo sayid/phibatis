@@ -76,7 +76,7 @@ class #{EntityName}Example
      */
     public function groupBy(...$groups)
     {
-        $this->builder->groupBy();
+        $this->builder->groupBy($groups);
         return $this;
     }
 
