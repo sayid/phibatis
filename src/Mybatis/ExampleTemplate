@@ -63,6 +63,23 @@ class #{EntityName}Example
         return $this->builder->delete();
     }
 
+    public function distinct()
+    {
+        $this->builder->distinct();
+        return $this;
+    }
+    /**
+     * Add a "group by" clause to the query.
+     *
+     * @param  array|string  ...$groups
+     * @return $this
+     */
+    public function groupBy(...$groups)
+    {
+        $this->builder->groupBy();
+        return $this;
+    }
+
     public function update(array $data)
     {
         return $this->builder->update($data);
