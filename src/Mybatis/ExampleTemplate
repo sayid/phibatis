@@ -32,17 +32,23 @@ class #{EntityName}Example
 
     public function getOne() : ?Entity
     {
-        return $this->builder->first();
+        $data = $this->builder->first();
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
     }
 
     public function getOneFields(array $fields) : ?object
     {
-         return $this->builder->first($fields);
+         $data = $this->builder->first($fields);
+         $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+         return $data;
     }
 
     public function getListFields(array $fields) : ?Collection
     {
-       return $this->builder->get($fields);
+       $data = $this->builder->get($fields);
+       $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+       return $data;
     }
 
     /**
@@ -50,17 +56,30 @@ class #{EntityName}Example
     */
     public function getList() : ?Collection
     {
-       return $this->builder->get();
+       $data = $this->builder->get();
+       $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+       return $data;
     }
 
     public function count()
     {
-        return $this->builder->count();
+        $data = $this->builder->count();
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
     }
 
     public function delete()
     {
-        return $this->builder->delete();
+        $data = $this->builder->delete();
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
+    }
+
+    public function update(array $data)
+    {
+        $data = $this->builder->update($data);
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
     }
 
     public function distinct()
@@ -78,11 +97,6 @@ class #{EntityName}Example
     {
         $this->builder->groupBy($groups);
         return $this;
-    }
-
-    public function update(array $data)
-    {
-        return $this->builder->update($data);
     }
 
     public function orderBy(string $field, string $type)
