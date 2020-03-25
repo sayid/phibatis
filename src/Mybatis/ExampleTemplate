@@ -20,7 +20,7 @@ class #{EntityName}Example
         $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
     }
 
-    public static function getTable()
+    public static function getTable() : string
     {
         return self::$tableName;
     }
@@ -75,8 +75,24 @@ class #{EntityName}Example
         return $data;
     }
 
+    public function deleteByPri(int $id)
+    {
+        $this->builder->where($this->prikey, "=", $id);
+        $data = $this->builder->delete();
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
+    }
+
     public function update(array $data)
     {
+        $data = $this->builder->update($data);
+        $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
+        return $data;
+    }
+
+    public function updateByPri(int $id, array $data)
+    {
+        $this->builder->where($this->prikey, "=", $id);
         $data = $this->builder->update($data);
         $this->builder = DBTool::getBuilder($this::getTable(), Entity::class);
         return $data;
