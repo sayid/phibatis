@@ -1,6 +1,6 @@
 第一步：安装
 
- `"sayid/table2model" : "dev-master"`
+ `"sayid/phibatis" : "dev-master"`
  
 第二步：
  `config/mybatis.php` 中配置
