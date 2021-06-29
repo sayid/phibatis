@@ -71,10 +71,12 @@ class DBTool
                     $entityGetterSetter[] = self::getEntityGetterSetter($field, $typeStr);
                     $where[] = self::getWhere($field, $typeStr);
                 }
-
-                $exampleDriver[] = "use " . $mybatisConfig['db-driver']['Builder'];
-                $exampleDriver[] = "use " . $mybatisConfig['db-driver']['DB'];
-                $exampleDriver[] = "use " . $mybatisConfig['db-driver']['Collection'];
+                $exampleDriver = [];
+                foreach ($mybatisConfig['db-components'] as $dbcomponent) {
+                    $exampleDriver[] = "use " . $mybatisConfig['db-components']['Builder'];
+                    $exampleDriver[] = "use " . $mybatisConfig['db-driver']['DB'];
+                    $exampleDriver[] = "use " . $mybatisConfig['db-driver']['Collection'];
+                }
 
 
                 $entityTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityTemplate");
