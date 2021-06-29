@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Sayid\\Table2Model\\": "src"
+      "Sayid\\Phibatis\\": "src"
     },
     "files": [
     ]

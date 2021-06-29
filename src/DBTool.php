@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Sayid\Table2Model;
+namespace Sayid\Phibatis;
 
 use Illuminate\Database\Events\StatementPrepared;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +29,13 @@ class DBTool
         return $dbBuilder;
     }
 
-    public static function doMybatis()
-    {
-
-        app()->configure("mybatis");
+    /**
+     * app()->configure("mybatis");
         $mybatisConfig = config("mybatis");
+     * @param array $mybatisConfig
+     */
+    public static function doMybatis(array $mybatisConfig)
+    {
         $tables = $mybatisConfig['tables'];
         if (!is_dir($mybatisConfig['output'])) {
             mkdir($mybatisConfig['output']);

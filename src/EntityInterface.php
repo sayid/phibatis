@@ -1,6 +1,6 @@
 <?php
 
-namespace Sayid\Table2Model;
+namespace Sayid\Phibatis;
 
 
 interface EntityInterface

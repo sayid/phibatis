@@ -1,7 +1,7 @@
 <?php
 namespace  #{EntityMameSpace};
 
-//use Sayid\Table2Mode\EntityInterface;
+//use Sayid\Phibatis\EntityInterface;
 
 class #{EntityName}
 {

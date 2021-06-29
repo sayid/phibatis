@@ -1,7 +1,7 @@
 <?php
 namespace  #{EntityMameSpace};
 
-use Sayid\Table2Model\DBTool;
+use Sayid\Phibatis\DBTool;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
