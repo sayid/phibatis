@@ -94,7 +94,7 @@ class DBTool
                 $exampleTpl = str_replace("#{PriKey}", $tableinfo['PriKey'],  $exampleTpl);
                 $exampleTpl = str_replace("#{TableName}", $tableinfo['table'],  $exampleTpl);
                 $exampleTpl = str_replace("#{Where}", join("\r\n", $where),  $exampleTpl);
-                $exampleTpl = str_replace("#{ExampleDriver}", join("\r\n", $exampleDriver),  $exampleTpl);
+                $exampleTpl = str_replace("#{ExampleDriver}", join(";\r\n", $exampleDriver),  $exampleTpl);
 
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName']."Example.php", $exampleTpl);
                 echo "正在生成".$table."生成完毕.......\r\n";
