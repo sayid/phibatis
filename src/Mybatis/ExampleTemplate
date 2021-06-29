@@ -2,9 +2,7 @@
 namespace  #{EntityMameSpace};
 
 use Sayid\Phibatis\DBTool;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
+#{ExampleDriver}
 use #{EntityMameSpace}\#{EntityName} as Entity;
 
 class #{EntityName}Example
