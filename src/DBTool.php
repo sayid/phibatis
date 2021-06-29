@@ -40,7 +40,9 @@ class DBTool
     {
         $tables = $mybatisConfig['tables'];
         if (!is_dir($mybatisConfig['output'])) {
-            mkdir($mybatisConfig['output']);
+            if (!mkdir($mybatisConfig['output'])) {
+                throw new \Exception("mkdir ". $mybatisConfig['output']. " failed");
+            }
         }
         $DB = $mybatisConfig['driver'];
 
@@ -78,7 +80,7 @@ class DBTool
                 if (empty($tableinfo['EntityType']) || $tableinfo['EntityType'] != 'trait') {
                     $tableinfo['EntityType'] = 'class';
                 }
-                $entityTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityTemplate");
+                $entityTpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/EntityTemplate");
                 $entityTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $entityTpl);
                 $entityTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $entityTpl);
                 $entityTpl = str_replace("#{EntityType}", $tableinfo['EntityType'],  $entityTpl);
@@ -86,13 +88,13 @@ class DBTool
                 $entityTpl = str_replace("#{GetterAndSetter}", join("\r\n", $entityGetterSetter),  $entityTpl);
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName'].".php", $entityTpl);
 
-                $exampleTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/ExampleTemplate");
+                $exampleTpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/ExampleTemplate");
                 $exampleTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $exampleTpl);
                 $exampleTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $exampleTpl);
                 $exampleTpl = str_replace("#{PriKey}", $tableinfo['PriKey'],  $exampleTpl);
                 $exampleTpl = str_replace("#{TableName}", $tableinfo['table'],  $exampleTpl);
                 $exampleTpl = str_replace("#{Where}", join("\r\n", $where),  $exampleTpl);
-                $exampleTpl = str_replace("#{ExampleDriver}", join("\r\n", $exampleDriver),  $exampleTpl);
+                $exampleTpl = str_replace("#{ExampleDriver}", join("\r\n", $exampleDriver),  $entityTpl);
 
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName']."Example.php", $exampleTpl);
                 echo "正在生成".$table."生成完毕.......\r\n";
@@ -112,7 +114,7 @@ class DBTool
     public static function getEntityGetterSetter(string $field, string $typeStr)
     {
         $func = ucfirst(self::convertUnderline($field));
-        $tpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityGetterSetterTpl");
+        $tpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/EntityGetterSetterTpl");
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
@@ -122,7 +124,7 @@ class DBTool
     public static function getEntityField(string $field, string $typeStr)
     {
         $func = ucfirst(self::convertUnderline($field));
-        $tpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityFieldTpl");
+        $tpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/EntityFieldTpl");
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
@@ -132,12 +134,12 @@ class DBTool
     public static function getWhere(string $field, string $typeStr) : string
     {
         $func = ucfirst(self::convertUnderline($field));
-        $whereAndTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/WhereAndTpl");
+        $whereAndTpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/WhereAndTpl");
         $whereAndTpl = str_replace("#{FieldFunc}", $func,  $whereAndTpl);
         $whereAndTpl = str_replace("#{TypeStr}", $typeStr,  $whereAndTpl);
         $whereAndTpl = str_replace("#{Field}", $field,  $whereAndTpl);
 
-        $whereOrTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/WhereOrTpl");
+        $whereOrTpl = file_get_contents(self::$rootDir . "/vendor/sayid/phibatis/src/Mybatis/WhereOrTpl");
         $whereOrTpl = str_replace("#{FieldFunc}", $func,  $whereOrTpl);
         $whereOrTpl = str_replace("#{TypeStr}", $typeStr,  $whereOrTpl);
         $whereOrTpl = str_replace("#{Field}", $field,  $whereOrTpl);
