@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Event;
 
 class DBTool
 {
+    public static string $rootDir;
+
     /**
      * 返回查询构造器
      * @param $table
@@ -31,7 +33,7 @@ class DBTool
 
     /**
      * app()->configure("mybatis");
-        $mybatisConfig = config("mybatis");
+    $mybatisConfig = config("mybatis");
      * @param array $mybatisConfig
      */
     public static function doMybatis(array $mybatisConfig)
@@ -40,12 +42,12 @@ class DBTool
         if (!is_dir($mybatisConfig['output'])) {
             mkdir($mybatisConfig['output']);
         }
-
+        $DB = $mybatisConfig['driver'];
         foreach ($tables as $tableinfo) {
             $table = $tableinfo['table'];
             echo "正在生成".$table.".......\r\n";
             $sql = "desc ".env('DB_DATABASE').".".$table;
-            $rows=DB::select($sql, []);
+            $rows= $DB::select($sql, []);
             $num = count($rows);
             if ($rows) {
                 $entityFields = [];
@@ -68,14 +70,14 @@ class DBTool
                     $entityGetterSetter[] = self::getEntityGetterSetter($field, $typeStr);
                     $where[] = self::getWhere($field, $typeStr);
                 }
-                $entityTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityTemplate"));
+                $entityTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityTemplate");
                 $entityTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $entityTpl);
                 $entityTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $entityTpl);
                 $entityTpl = str_replace("#{Fileds}", join("\r\n", $entityFields),  $entityTpl);
                 $entityTpl = str_replace("#{GetterAndSetter}", join("\r\n", $entityGetterSetter),  $entityTpl);
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName'].".php", $entityTpl);
 
-                $exampleTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/ExampleTemplate"));
+                $exampleTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/ExampleTemplate");
                 $exampleTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $exampleTpl);
                 $exampleTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $exampleTpl);
                 $exampleTpl = str_replace("#{PriKey}", $tableinfo['PriKey'],  $exampleTpl);
@@ -100,7 +102,7 @@ class DBTool
     public static function getEntityGetterSetter(string $field, string $typeStr)
     {
         $func = ucfirst(self::convertUnderline($field));
-        $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityGetterSetterTpl"));
+        $tpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityGetterSetterTpl");
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
@@ -110,7 +112,7 @@ class DBTool
     public static function getEntityField(string $field, string $typeStr)
     {
         $func = ucfirst(self::convertUnderline($field));
-        $tpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/EntityFieldTpl"));
+        $tpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityFieldTpl");
         $tpl = str_replace("#{FieldFunc}", $func,  $tpl);
         $tpl = str_replace("#{TypeStr}", $typeStr,  $tpl);
         $tpl = str_replace("#{Field}", $field,  $tpl);
@@ -120,12 +122,12 @@ class DBTool
     public static function getWhere(string $field, string $typeStr) : string
     {
         $func = ucfirst(self::convertUnderline($field));
-        $whereAndTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/WhereAndTpl"));
+        $whereAndTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/WhereAndTpl");
         $whereAndTpl = str_replace("#{FieldFunc}", $func,  $whereAndTpl);
         $whereAndTpl = str_replace("#{TypeStr}", $typeStr,  $whereAndTpl);
         $whereAndTpl = str_replace("#{Field}", $field,  $whereAndTpl);
 
-        $whereOrTpl = file_get_contents(app()->basePath("vendor/sayid/table2model/src/Mybatis/WhereOrTpl"));
+        $whereOrTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/WhereOrTpl");
         $whereOrTpl = str_replace("#{FieldFunc}", $func,  $whereOrTpl);
         $whereOrTpl = str_replace("#{TypeStr}", $typeStr,  $whereOrTpl);
         $whereOrTpl = str_replace("#{Field}", $field,  $whereOrTpl);

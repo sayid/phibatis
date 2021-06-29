@@ -1,4 +1,13 @@
 #!/usr/bin/env php
 <?php
-Sayid\Table2Model\DBTool::doMybatis();
+$root = substr(__DIR__, 0, stripos(__DIR__, 'vendor'));
+require_once $root . 'vendor/autoload.php';
+$configFile =  'config/phibatis.php';
+foreach ($argv as $a) {
+    if (strpos($a, "-c") === 0) {
+        $configFile = str_replace($a, "-c");
+    }
+}
+$mybatisConfig = require_once $root . $configFile;
+\Sayid\Phibatis\DBTool::doMybatis($mybatisConfig);
 
