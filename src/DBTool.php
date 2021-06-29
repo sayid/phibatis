@@ -77,11 +77,13 @@ class DBTool
                     $exampleDriver[] = "use " . $mybatisConfig['db-driver']['DB'];
                     $exampleDriver[] = "use " . $mybatisConfig['db-driver']['Collection'];
                 }
-
-
+                if (empty($tableinfo['EntityType']) || $tableinfo['EntityType'] != 'trait') {
+                    $tableinfo['EntityType'] = 'class';
+                }
                 $entityTpl = file_get_contents(self::$rootDir . "vendor/sayid/phibatis/src/Mybatis/EntityTemplate");
                 $entityTpl = str_replace("#{EntityMameSpace}", $mybatisConfig['namespace'],  $entityTpl);
                 $entityTpl = str_replace("#{EntityName}", $tableinfo['EntityName'],  $entityTpl);
+                $entityTpl = str_replace("#{EntityType}", $tableinfo['EntityType'],  $entityTpl);
                 $entityTpl = str_replace("#{Fileds}", join("\r\n", $entityFields),  $entityTpl);
                 $entityTpl = str_replace("#{GetterAndSetter}", join("\r\n", $entityGetterSetter),  $entityTpl);
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName'].".php", $entityTpl);

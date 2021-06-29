@@ -3,7 +3,7 @@ namespace  #{EntityMameSpace};
 
 //use Sayid\Phibatis\EntityInterface;
 
-class #{EntityName}
+#{EntityType} #{EntityName}
 {
 #{Fileds}
 
