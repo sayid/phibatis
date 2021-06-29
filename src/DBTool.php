@@ -40,7 +40,7 @@ class DBTool
     {
         $tables = $mybatisConfig['tables'];
         if (!is_dir($mybatisConfig['output'])) {
-            if (!mkdir($mybatisConfig['output'])) {
+            if (!mkdir($mybatisConfig['output'], 0777, true)) {
                 throw new \Exception("mkdir ". $mybatisConfig['output']. " failed");
             }
         }
@@ -94,7 +94,7 @@ class DBTool
                 $exampleTpl = str_replace("#{PriKey}", $tableinfo['PriKey'],  $exampleTpl);
                 $exampleTpl = str_replace("#{TableName}", $tableinfo['table'],  $exampleTpl);
                 $exampleTpl = str_replace("#{Where}", join("\r\n", $where),  $exampleTpl);
-                $exampleTpl = str_replace("#{ExampleDriver}", join("\r\n", $exampleDriver),  $entityTpl);
+                $exampleTpl = str_replace("#{ExampleDriver}", join("\r\n", $exampleDriver),  $exampleTpl);
 
                 file_put_contents($mybatisConfig['output']."/".$tableinfo['EntityName']."Example.php", $exampleTpl);
                 echo "正在生成".$table."生成完毕.......\r\n";
